@@ -85,7 +85,8 @@ class Predictor(BasePredictor):
         Path(output_dir).mkdir(exist_ok=True)
 
         status("detecting video's FPS...")
-        fps = detect_fps(target)
+        #fps = detect_fps(target)
+        fps = 24
 
         if not keep_fps and fps > 30:
             this_path = output_dir + "/" + video_name + ".mp4"
@@ -111,7 +112,8 @@ class Predictor(BasePredictor):
         output_file = create_video(video_name, fps, output_dir)
 
         status("adding audio...")
-        output_file = add_audio(output_dir, target, keep_frames)
+
+        output_file = add_audio(output_dir, target, keep_frames, output_file)
         print("\n\nVideo saved as:", output_file, "\n\n")
-        yield CogPath(output_file)
+        yield CogPath('./output/swapped-output.mp4')
         status("swap successful!")
